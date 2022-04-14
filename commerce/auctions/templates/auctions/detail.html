@@ -1,0 +1,17 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listing: {{data.name}}</h2>
+    <div>{{ data.imgURL }}</div>
+    <div>{{ data.detail }}</div>
+    <div>{{ data.starting }}</div>
+    <form action="/test">
+        <label for="price">price</label>
+        <input type="number" min={{data.starting}} name="price" required id="price"/>
+        <input value="Place Bid" type="submit"/>
+    </form>
+    <form action="/addwatch/{{ data.id }}">
+        <input type="submit" value="add to Watchlist" />
+    </form>
+
+{% endblock %}

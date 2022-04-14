@@ -15,12 +15,15 @@ class auction_listings(models.Model):
     is_active = models.BooleanField(default=True)
 
 class bid_record(models.Model):
-    aid = models.ForeignKey(User, on_delete=models.CASCADE)
-    uid = models.ForeignKey(auction_listings, on_delete=models.CASCADE)
+    aid = models.ForeignKey(auction_listings, on_delete=models.CASCADE)
+    uid = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.IntegerField()
 
 class commits(models.Model):
-    aid = models.ForeignKey(User, on_delete=models.CASCADE)
-    uid = models.ForeignKey(auction_listings, on_delete=models.CASCADE)
+    aid = models.ForeignKey(auction_listings, on_delete=models.CASCADE)
+    uid = models.ForeignKey(User, on_delete=models.CASCADE)
     commit = models.TextField()
 
+class Watch_list(models.Model):
+    aid = models.ForeignKey(auction_listings, on_delete=models.CASCADE)
+    uid = models.ForeignKey(User, on_delete=models.CASCADE)
