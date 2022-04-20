@@ -1,3 +1,5 @@
+from itertools import chain
+import string
 from tracemalloc import is_tracing
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -113,16 +115,18 @@ def addWatch(request, auction_id):
     watched.aid = aid
     watched.uid = uid
     watched.save()
+    return redirect('/listings/'+str(auction_id)+'/')
 
 
-# python 如何迭代查询呢
-# def watchList(request):
-#     lists = Watch_list.objects.filter(uid = request.user.id)
-#     data = arr.array('0')
-#     for list in lists:
-#         data.append(auction_listings.objects.filter(id = list.aid))
+# # python 如何迭代查询呢
+def watchList(request):
+    lists = Watch_list.objects.filter(uid = request.user.id)
+    # print(lists[0].aid.name)
+    # data = auction_listings.objects.filter(id = lists[0].aid)
+    # for list in lists[1:]:
+    #     data = chain(data,auction_listings.objects.filter(id = list.aid))
 
-#     return render(request, "auctions/indes.html", {
-#         "title": "Watched",
-#         "data": data[1:]
-#     })
+    return render(request, "auctions/watchlist.html", {
+        "title": "Watched",
+        "data": lists
+    })
