@@ -4,7 +4,7 @@
     <h2>{{ title }} Listings</h2>
 
     {% for auction in data %}
-    <div onclick="window.location.href='/listings/{{auction.id}}'">
+    <div onclick="window.location.href='/listings/{{auction.id}}'" class="entry-content">
         <div>{{ auction.id }}</div>
         <div>{{ auction.name }}</div>
         <div>{{ auction.imgURL }}</div>

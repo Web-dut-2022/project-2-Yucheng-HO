@@ -19,10 +19,10 @@ class bid_record(models.Model):
     uid = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.IntegerField()
 
-class commits(models.Model):
+class comments(models.Model):
     aid = models.ForeignKey(auction_listings, on_delete=models.CASCADE)
     uid = models.ForeignKey(User, on_delete=models.CASCADE)
-    commit = models.TextField()
+    comment = models.TextField()
 
 class Watch_list(models.Model):
     aid = models.ForeignKey(auction_listings, on_delete=models.CASCADE)

@@ -5,13 +5,36 @@
     <div>{{ data.imgURL }}</div>
     <div>{{ data.detail }}</div>
     <div>{{ data.starting }}</div>
-    <form action="/test">
+    {% if isNewOwner %}
+    <h3>You win this auctions !!!</h3>
+    {% else %}
+    <form action="/listings/{{data.id}}/" method="post">
+        {% csrf_token %}
         <label for="price">price</label>
-        <input type="number" min={{data.starting}} name="price" required id="price"/>
+        <input type="number" min={{minPrice}} name="price" required id="price"/>
         <input value="Place Bid" type="submit"/>
     </form>
+    {% if watched %}
+    <form action="/deletewatch/{{ data.id }}">
+        <input type="submit" value="delete from Watchlist" />
+    </form>
+    {% else %}
     <form action="/addwatch/{{ data.id }}">
         <input type="submit" value="add to Watchlist" />
+    </form>
+    {% endif %}
+
+    {% if isAuthor %}
+    <form action="/close/{{ data.id }}">
+        <input type="submit" value="close this auction" />
+    </form>
+    {% endif %}
+    {% endif %}
+    <form action="/comment/{{ data.id }}" method="post">
+        {% csrf_token %}
+        <label for="comment">price</label>
+        <input type="text" name="comment" required id="comment"/>
+        <input type="submit" value="comment" />
     </form>
 
 {% endblock %}
