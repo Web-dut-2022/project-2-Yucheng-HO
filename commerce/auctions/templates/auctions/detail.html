@@ -2,7 +2,8 @@
 
 {% block body %}
     <h2>Listing: {{data.name}}</h2>
-    <div>{{ data.imgURL }}</div>
+    <!-- <div>{{ data.imgURL }}</div> -->
+    <img src="{{ data.imgURL }}" style="width: 25%;"/>
     <div>{{ data.detail }}</div>
     <div>{{ data.starting }}</div>
     {% if isNewOwner %}
@@ -30,11 +31,16 @@
     </form>
     {% endif %}
     {% endif %}
-    <form action="/comment/{{ data.id }}" method="post">
+    <form action="/comment/{{ data.id }}/" method="post">
         {% csrf_token %}
-        <label for="comment">price</label>
+        <label for="comment">comment here</label><br>
         <input type="text" name="comment" required id="comment"/>
         <input type="submit" value="comment" />
     </form>
+
+    {% for comment in comments %}
+    <h5>{{ comment.uid.username }}</h5>
+    <p>{{ comment.comment }}</p>
+    {% endfor %}
 
 {% endblock %}

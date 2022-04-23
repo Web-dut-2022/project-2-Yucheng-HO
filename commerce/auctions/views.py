@@ -119,7 +119,7 @@ def listings(request, auction_id):
         if data.is_active == False and request.user.id == bid_record.objects.get(aid = auction_id, price=now_price).uid.id:
             is_newOwner = True
 
-        print(is_newOwner)
+        # print(is_newOwner)
 
 
         is_author = False
@@ -133,7 +133,7 @@ def listings(request, auction_id):
         # print(watched)
 
         # 待测试
-        auction_comments = comments.objects.filter(aid = auction_id, uid = request.user.id)
+        auction_comments = comments.objects.filter(aid = auction_id)
         
         return render (request, "auctions/detail.html", {
             "data": data,
@@ -189,13 +189,13 @@ def close_auction(request, auction_id):
     data.save()
     return redirect('/')
 
-# 待测试
-def add_commit(request,auction_id):
+
+def add_comment(request,auction_id):
     comment = request.POST['comment']
     aid = auction_listings.objects.get(id = auction_id)
     uid = User.objects.get(id = request.user.id)
     new_comment = comments(comment=comment)
-    comments.aid = aid
-    comments.uid = uid
+    new_comment.aid = aid
+    new_comment.uid = uid
     new_comment.save()
     return redirect('/listings/'+str(auction_id)+'/')
